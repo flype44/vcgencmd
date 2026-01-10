@@ -1,0 +1,14 @@
+
+	SECTION  .text
+	
+	XDEF     _LE32
+	
+	CNOP     0,4
+
+_LE32:
+	ROR.w    #8,d0
+	SWAP     d0
+	ROR.w    #8,d0
+	RTS
+
+	END

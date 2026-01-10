@@ -1,0 +1,18 @@
+###############################################################################
+#
+# SAS/C Makefile for "vcgencmd"
+# for SAS/C Amiga Compiler 6.59
+# 
+###############################################################################
+
+OUTFILE=vcgencmd
+
+OBJECTS=vcgencmd.o utils.o
+
+all: $(OUTFILE)
+
+clean:
+	@delete $(OBJECTS)
+
+$(OUTFILE): $(OBJECTS)
+	sc MATH=STANDARD CHKABORT NOICONS STRIPDEBUG TO $(OUTFILE) LINK $(OBJECTS)
