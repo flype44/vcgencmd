@@ -1,5 +1,5 @@
-#ifndef __UTILS_H
-#define __UTILS_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #ifdef __GNUC__
 #define ASM
@@ -11,4 +11,4 @@
 
 ULONG ASM LE32(REG(d0, ULONG a));
 
-#endif // __UTILS_H
+#endif // UTILS_H
