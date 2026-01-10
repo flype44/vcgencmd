@@ -1,12 +1,10 @@
-/********************************************************************
- * 
+/******************************************************************************
  * Program:  vcgencmd.c
  * Purpose:  github.com/raspberry/utils/blob/master/vcgencmd
- * Authors:  Philippe CARPENTIER
- * Target:   AmigaOS 3.x
+ * Authors:  Michal Schulz, Philippe CARPENTIER
+ * Target:   PiStorm, Emu68, AmigaOS 3.x
  * Compiler: SAS/C Amiga Compiler 6.59
- * 
- ********************************************************************/
+ ******************************************************************************/
 
 #include <dos/dos.h>
 #include <exec/exec.h>
