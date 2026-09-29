@@ -1,15 +1,17 @@
 /******************************************************************************
  * Program:  vcgencmd.c
- * Purpose:  github.com/raspberry/utils/blob/master/vcgencmd
+ * Purpose:  Send a command to the VideoCore and print the result.
  * Authors:  Michal Schulz, Philippe CARPENTIER
  * Target:   PiStorm, Emu68, AmigaOS 3.x
  * Compiler: SAS/C Amiga Compiler 6.59
+ * Original: https://github.com/raspberrypi/utils/tree/master/vcgencmd
  ******************************************************************************/
 
 #include <dos/dos.h>
 #include <exec/exec.h>
 #include <proto/dos.h>
 #include <proto/exec.h>
+#include <proto/devicetree.h>
 #include <proto/mailbox.h>
 
 #include "utils.h"
@@ -20,7 +22,7 @@
  ******************************************************************************/
 
 #define MAILBOXNAME "mailbox.resource"
-
+#define DEVICETREENAME "devicetree.resource"
 #define TEMPLATE "CMD=COMMAND/F/A"
 
 typedef enum {
@@ -32,9 +34,10 @@ typedef enum {
  * Globals
  ******************************************************************************/
 
-APTR MailboxBase;
+APTR MailboxBase = NULL;
+APTR DeviceTreeBase = NULL;
 
-STRPTR VSTRING = VERSTRING;
+STRPTR VERSTAG = VERSTRING;
 
 extern struct ExecBase * SysBase;
 extern struct DosLibrary * DOSBase;
@@ -48,9 +51,9 @@ static VOID ShowUsage(VOID) {
 	PutStr("Send a command to the VideoCore and print the result.\n");
 	PutStr("Without any argument this information is shown.\n");
 	PutStr("Use the command 'vcgencmd commands' to get a list of available commands.\n");
-	PutStr("Exit status 0 means command completed successfully");
-	PutStr(" else VideoCore return an error\n");
-	PutStr("For further documentation please see\n");
+	PutStr("Exit status 0 means command completed successfully ");
+	PutStr("else VideoCore return an error.\n");
+	PutStr("For further documentation please see:\n");
 	PutStr("https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd\n");
 }
 
@@ -151,6 +154,12 @@ ULONG main(ULONG argc, STRPTR * argv)
 	UBYTE reply[1024];
 	LONG opts[OPT_COUNT];
 	struct RDArgs * rdargs;
+	
+	// Open devicetree.resource
+	if (!(DeviceTreeBase = OpenResource(DEVICETREENAME))) {
+		PutStr("Cant open " DEVICETREENAME "\n");
+		return (RETURN_FAIL);
+	}
 	
 	// Open mailbox.resource
 	if (!(MailboxBase = OpenResource(MAILBOXNAME))) {
