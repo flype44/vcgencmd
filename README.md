@@ -81,7 +81,7 @@ capabilities 0x0000007f
 | `measure_clock <clk>`  | Clock frequency in Hz (`arm`, `core`, `h264`, `emmc`…) |
 | `measure_volts [blk]`  | Voltage of a block (`core`, `sdram_c`, `sdram_i`…)     |
 | `get_throttled`        | Throttling / under-voltage status bit pattern          |
-| `get_mem arm|gpu`      | Memory addressable by the ARM side or the GPU          |
+| `get_mem arm,gpu`      | Memory addressable by the ARM side or the GPU          |
 | `get_config <name>`    | Value of a firmware configuration setting              |
 | `version`              | Firmware build date and version                        |
 | `bootloader_version`   | Bootloader build information                           |
