@@ -119,4 +119,8 @@ Emu68 `mailbox.resource` and `devicetree.resource` headers and prototypes
 
 ## License
 
-_To be defined before release._
+This port is released under the **Mozilla Public License 2.0**, the same license
+as Emu68. See the [LICENSE](LICENSE) file for the full text.
+
+It is derived from the Raspberry Pi `vcgencmd` utility, which is distributed under
+the BSD 3-Clause License (Copyright (c) 2023, Raspberry Pi Ltd.).
